@@ -1,5 +1,5 @@
 const Hypixel = require('hypixel-api-reborn');
-const hypixel = new Hypixel.Client('d06b1d69550b4c7f8cabb6a0f37c5e80');
+const hypixel = new Hypixel.Client('INSERT BOT KEY HERE');
 const Discord = require('discord.js');
 
 module.exports = {
