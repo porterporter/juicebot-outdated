@@ -30,7 +30,7 @@ const hypixel = new Hypixel.Client('INSERT BOT KEY HERE');
 ## With Help From
 - [RoboLiam](https://github.com/Controlfreak707/RoboLiam)
 - [DiscordJS-Hypixel-Stats](https://github.com/TheTaxPerson/DiscordJS-Hypixel-Stats/blob/master/commands/skywars.js)
-=======
+
 ## With Help From
 - [RoboLiam](https://github.com/Controlfreak707/RoboLiam)
 - [DiscordJS-Hypixel-Stats](https://github.com/TheTaxPerson/DiscordJS-Hypixel-Stats/blob/master/commands/skywars.js)
