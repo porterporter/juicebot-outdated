@@ -19,9 +19,7 @@ module.exports = {
       }
         catch (e) {
           console.error(e);
-          embed.setColor('#eb3939');
-          embed.setDescription(`There was an error fetching the UUID of "${args[0]}"`);
-          message.channel.send({ embed });
+          embed.setDescription('There was an error fetching the UUID;');
         }
       });
       } };
