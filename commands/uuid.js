@@ -1,4 +1,5 @@
 const mojang = require('mojang-api');
+const Discord = require('discord.js');
 
 module.exports = {
     name: 'uuid',
@@ -9,13 +10,18 @@ module.exports = {
             message.reply('please specify the player\'s name');
             return;
         }
+        const embed = new Discord.MessageEmbed();
         mojang.nameToUuid(args[0], (err, resp) => {
         try {
-          message.channel.send(`${resp[0].name}'s uuid is ${resp[0].id}`);
+          embed.setColor('#51eb39');
+          embed.setDescription(`Player Name: ${resp[0].name}\nUUID: ${resp[0].id}`);
+          message.channel.send({ embed });
       }
         catch (e) {
           console.error(e);
-          message.reply('There was an error!');
+          embed.setColor('#eb3939');
+          embed.setDescription(`There was an error fetching the UUID of "${args[0]}"`);
+          message.channel.send({ embed });
         }
       });
       } };
