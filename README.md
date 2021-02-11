@@ -6,7 +6,7 @@ the greatest discord bot ever, created by [juiceboy](https://twitter.com/i/user/
 
 ## Setup
 you need node.js for this! install it [from here](https://nodejs.org/en/download/)
-run npm i
+**run ** *npm i* ** to install all needed dependencies**
 edit the *example.env* and rename it to .env
 ```
 prefix = >
@@ -15,10 +15,13 @@ hypixel_token = PUT YOUR HYPIXEL API BOT TOKEN HERE
 ```
 
 ## Requirements
+**RUN ** *npm i* ** TO INSTALL ALL NEEDED DEPENDENCIES**
 - [discord.js](https://www.npmjs.com/package/discord.js)
 - [dotenv](https://www.npmjs.com/package/dotenv)
 - [hypixel-api-reborn](https://www.npmjs.com/package/hypixel-api-reborn)
-- [mojang-api](https://www.npmjs.com/package/mojang-api)
+- [note-fetch](https://www.npmjs.com/package/node-fetch)
+- [dayjs](https://www.npmjs.com/package/dayjs)
+
 
 ## TO DO:
 - more commands
