@@ -16,27 +16,29 @@ module.exports = {
 				})
 				.catch((err) => {
 					message.channel.send(
-						`❌ I was unable to kick the user ${member.user.tag}.`
+						`❌ I was unable to kick the user ${member.user.tag}.`,
 					);
 					console.log(err);
 				});
-			} else if (member && args[1]) {
-			let msgArgs = args.slice(1).join(' ');
+			}
+ else if (member && args[1]) {
+			const msgArgs = args.slice(1).join(' ');
 			member
 				.kick(msgArgs)
 				.then(() => {
 					message.reply(
-						`✅ Succesfuly kicked ${member.user.tag} for '${msgArgs}'.`
+						`✅ Succesfuly kicked ${member.user.tag} for '${msgArgs}'.`,
 					);
 				})
 				.catch((err) => {
 					message.channel.send(
-						`❌ I was unable to kick  the user ${member.user.tag}.`
+						`❌ I was unable to kick  the user ${member.user.tag}.`,
 					);
 					console.log(err);
 				});
-			} else {
-			message.channel.send(`❌ Requested user not found.`);
+			}
+ else {
+			message.channel.send('❌ Requested user not found.');
 		}
 	},
 };

@@ -1,11 +1,9 @@
 require('dotenv').config();
 const fs = require('fs');
 const Discord = require('discord.js');
-const { prefix, token } = require('./config.json');
-
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
-
+const prefix = process.env.prefix;
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
@@ -17,50 +15,10 @@ const cooldowns = new Discord.Collection();
 
 client.once('ready', () => {
 	console.log(`Logged in as ${client.user.tag}`);
-  let users;
-  let guilds;
-  client.users.cache.tap((coll) => (users = coll.size));
-  client.guilds.cache.tap((coll) => (guilds = coll.size));
-  const status = [
-    {
-      activity: 'created by juiceboy#0001',
-    },
-    //{
-    //  activity: `${users} users in ${guilds} servers.`,
-   //   type: 'WATCHING',
-   // },
-    {
-	url: 'https://www.twitch.tv/juiceboylive',
-	type: 'STREAMING',
-    },
-    {
-      activity: 'Minecraft',
-      type: 'PLAYING',
-    },
-    {
-      activity: 'visit porter.moe!',
-    },
-    {
-      activity: 'add this bot to your server! bot.porter.moe',
-    },
-  ];
-  let random = status[Math.floor(Math.random() * Math.floor(status.length))];
-  client.user.setActivity(random.activity, {
-    type: random.type,
-  });
-  setInterval(async function() {
-    client.users.cache.tap((coll) => (users = coll.size));
-    client.guilds.cache.tap((coll) => (guilds = coll.size));
-    random = status[Math.floor(Math.random() * Math.floor(status.length))];
-    client.user.setActivity(random.activity, {
-      type: random.type,
-    });
-  }, 60000);
-});
-
+ });
 
 client.on('ready', () => {
-	client.user.setActivity('visit porter.moe', {
+	client.user.setActivity('SWAG INCORPORATED', {
 		type: 'STREAMING',
 		url: 'https://www.twitch.tv/juiceboylive',
 	});
@@ -130,4 +88,5 @@ client.on('message', message => {
 	}
 });
 
-client.login(token);
+
+client.login(process.env.discord_token);
