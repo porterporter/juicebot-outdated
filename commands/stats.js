@@ -16,7 +16,6 @@ module.exports = {
 		hypixel.getPlayer(name, { guild: true }).then(async (player) => {
 			const game = player.stats;
 			const embed = new Discord.MessageEmbed();
-			console.log(game.rewardScore);
 			if (player.isOnline != false) {
 				embed.setColor('#51eb39');
 				embed.setFooter('User is currently online');
