@@ -1,0 +1,59 @@
+case 'duels':
+			switch (args[2]) {
+				case 'uhc':
+				case 'solouhc':
+				case '1uhc':
+					embed.setAuthor(player.nickname);
+					embed.setDescription('Solo UHC Duels Stats');
+					embed.addField('Kills', player.stats.duels.uhc.v1.kills, true);
+					embed.addField('Deaths', player.stats.duels.uhc.v1.deaths, true);
+					embed.addField('Wins', player.stats.duels.uhc.v1.wins, true);
+					embed.addField('Losses', player.stats.duels.uhc.v1.losses, true);
+					embed.addField('K/D', (player.stats.duels.uhc.v1.kills / player.stats.duels.uhc.v1.deaths).toFixed(2), true);
+					embed.addField('W/L', (player.stats.duels.uhc.v1.wins / player.stats.duels.uhc.v1.losses).toFixed(2), true);
+				break;
+				case 'teamsuhc':
+				case '2uhc':
+					embed.setAuthor(player.nickname);
+					embed.setDescription('Two Player Teams UHC Duels Stats');
+					embed.addField('Kills', player.stats.duels.uhc.v2.kills, true);
+					embed.addField('Deaths', player.stats.duels.uhc.v2.deaths, true);
+					embed.addField('Wins', player.stats.duels.uhc.v2.wins, true);
+					embed.addField('Losses', player.stats.duels.uhc.v2.losses, true);
+					embed.addField('K/D', (player.stats.duels.uhc.v2.kills / player.stats.duels.uhc.v2.deaths).toFixed(2), true);
+					embed.addField('W/L', (player.stats.duels.uhc.v2.wins / player.stats.duels.uhc.v2.losses).toFixed(2), true);
+				break;
+				case 'fouruhc':
+				case '4uhc':
+					embed.setAuthor(player.nickname);
+					embed.setDescription('Four Player Teams UHC Duels Stats');
+					embed.addField('Kills', player.stats.duels.uhc.v4.kills, true);
+					embed.addField('Deaths', player.stats.duels.uhc.v4.deaths, true);
+					embed.addField('Wins', player.stats.duels.uhc.v4.wins, true);
+					embed.addField('Losses', player.stats.duels.uhc.v4.losses, true);
+					embed.addField('K/D', (player.stats.duels.uhc.v4.kills / player.stats.duels.uhc.v4.deaths).toFixed(2), true);
+					embed.addField('W/L', (player.stats.duels.uhc.v4.wins / player.stats.duels.uhc.v4.losses).toFixed(2), true);
+				break;
+				case 'op':
+				case 'soloop':
+				case '1op':
+					embed.setAuthor(player.nickname);
+					embed.setDescription('Solo OP Duels Stats');
+					embed.addField('Kills', player.stats.duels.op.v1.kills, true);
+					embed.addField('Deaths', player.stats.duels.op.v1.deaths, true);
+					embed.addField('Wins', player.stats.duels.op.v1.wins, true);
+					embed.addField('Losses', player.stats.duels.op.v1.losses, true);
+					embed.addField('K/D', (player.stats.duels.op.v1.kills / player.stats.duels.op.v1.deaths).toFixed(2), true);
+					embed.addField('W/L', (player.stats.duels.op.v1.wins / player.stats.duels.op.v1.losses).toFixed(2), true);
+				break;
+				case '2op':
+				case '2v2op':
+					embed.setAuthor(player.nickname);
+					embed.setDescription('Solo OP Duels Stats');
+					embed.addField('Kills', player.stats.duels.op.v2.kills, true);
+					embed.addField('Deaths', player.stats.duels.op.v2.deaths, true);
+					embed.addField('Wins', player.stats.duels.op.v2.wins, true);
+					embed.addField('Losses', player.stats.duels.op.v2.losses, true);
+					embed.addField('K/D', (player.stats.duels.op.v2.kills / player.stats.duels.op.v2.deaths).toFixed(2), true);
+					embed.addField('W/L', (player.stats.duels.op.v2.wins / player.stats.duels.op.v2.losses).toFixed(2), true);
+				break;

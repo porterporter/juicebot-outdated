@@ -16,6 +16,7 @@ module.exports = {
 		hypixel.getPlayer(name, { guild: true }).then(async (player) => {
 			const game = player.stats;
 			const embed = new Discord.MessageEmbed();
+			console.log(game.rewardScore);
 			if (player.isOnline != false) {
 				embed.setColor('#51eb39');
 				embed.setFooter('User is currently online');
@@ -31,14 +32,18 @@ module.exports = {
 					embed.setAuthor(player.nickname);
 					embed.setDescription('Skywars Stats');
 					embed.addField('Total Games', game.skywars.playedGames, true);
+					embed.addField('Level', game.skywars.levelFormatted, true);
 					embed.addField('Wins', game.skywars.wins, true);
+					embed.addField('Losses', game.skywars.losses, true);
+					embed.addField('WLR', game.skywars.WLRatio, true);
 					embed.addField('Kills', game.skywars.kills, true);
+					embed.addField('Deaths', game.skywars.deaths, true);
+					embed.addField('KDR', game.skywars.KDRatio, true);
 					embed.addField('Coins', game.skywars.coins, true);
 					embed.addField('Tokens', game.skywars.tokens, true);
-					embed.addField('Level', game.skywars.levelFormatted, true);
-					embed.addField('KDR', game.skywars.KDRatio, true);
 					embed.addField('Heads', game.skywars.heads, true);
 					embed.addField('Souls', game.skywars.souls, true);
+
 					embed.setThumbnail(`http://cravatar.eu/helmhead/${name}.png`);
 					break;
 
