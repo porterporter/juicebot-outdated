@@ -1,4 +1,5 @@
 # juicebot
+[![forthebadge](https://forthebadge.com/images/badges/built-with-swag.svg)](https://forthebadge.com)
 
 the greatest discord bot ever, created by [juiceboy](https://twitter.com/i/user/1026587028295704576).
 
