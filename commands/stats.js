@@ -13,6 +13,7 @@ module.exports = {
 	description: 'retrieve hypixel stats',
 	execute(message, args) {
 		const name = args[0];
+		message.channel.startTyping();
 		hypixel.getPlayer(name, { guild: true }).then(async (player) => {
 			const game = player.stats;
 			const embed = new Discord.MessageEmbed();
@@ -32,6 +33,7 @@ module.exports = {
 					embed.setDescription('Skywars Stats');
 					embed.addField('Total Games', game.skywars.playedGames, true);
 					embed.addField('Level', game.skywars.levelFormatted, true);
+					embed.addField('% To Next', ((game.skywars.level - Math.floor(game.skywars.level)) * 100).toFixed(1) + '%', true);
 					embed.addField('Wins', game.skywars.wins, true);
 					embed.addField('Losses', game.skywars.losses, true);
 					embed.addField('WLR', game.skywars.WLRatio, true);
@@ -42,6 +44,9 @@ module.exports = {
 					embed.addField('Tokens', game.skywars.tokens, true);
 					embed.addField('Heads', game.skywars.heads, true);
 					embed.addField('Souls', game.skywars.souls, true);
+					embed.addField('Shards', (game.skywars.shards) || 0, true);
+					embed.addField('Opals', (game.skywars.opals) || 0, true);
+
 
 					embed.setThumbnail(`http://cravatar.eu/helmhead/${name}.png`);
 					break;
@@ -85,9 +90,10 @@ else {
 
 		}).catch(e => {
 			console.log(e);
-			return message.reply('There was an error running this command!```USAGE: >stats <Username> (Optional: Gamemode)\n>stats njon skywars```');
+			return message.reply('There was an error running this command! Did you type in the username correctly?```USAGE: >stats <Username> (Optional: Gamemode)\n>stats njon skywars```');
 
 
 		});
+		message.channel.stopTyping();
 	},
 };

@@ -1,9 +1,11 @@
 const Discord = require('discord.js');
 
+
 module.exports = {
 	name: 'leave',
 	description: 'leave the server',
 	permission: 'KICK_MEMBERS',
+	guildOnly: true,
 	execute(message) {
 		const embed = new Discord.MessageEmbed()
 		.setColor('#92cded')

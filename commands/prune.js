@@ -2,6 +2,7 @@ module.exports = {
 	name: 'prune',
 	description: 'delete messages',
 	permission: 'MANAGE_MESSAGES',
+	guildOnly: true,
 
 	execute(message, args) {
 		const amount = parseInt(args[0]) + 1;

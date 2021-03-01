@@ -15,8 +15,8 @@
     "dayjs": "^1.10.4",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
-    "eslint": "^7.19.0",
-    "hypixel-api-reborn": "^3.1.2",
+    "eslint": "^7.21.0",
+    "hypixel-api-reborn": "^6.2.0",
     "node-fetch": "^2.6.1"
   }
 }
