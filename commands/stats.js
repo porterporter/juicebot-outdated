@@ -29,7 +29,6 @@ module.exports = {
 			switch (args[1]) {
 				case 'skywars':
 				case 'sw':
-					console.log(game.skywars);
 					embed.setAuthor(player.nickname);
 					embed.setDescription('Skywars Stats');
 
