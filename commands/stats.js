@@ -29,26 +29,32 @@ module.exports = {
 			switch (args[1]) {
 				case 'skywars':
 				case 'sw':
+					console.log(game.skywars);
 					embed.setAuthor(player.nickname);
 					embed.setDescription('Skywars Stats');
-					embed.addField('Total Games', game.skywars.playedGames, true);
+
 					embed.addField('Level', game.skywars.levelFormatted, true);
-					embed.addField('% To Next', ((game.skywars.level - Math.floor(game.skywars.level)) * 100).toFixed(1) + '%', true);
+					embed.addField('Prestige', game.skywars.prestige, true);
+					embed.addField('Played Games', game.skywars.playedGames, true);
+
+					embed.addField('Experience', game.skywars.experience, true);
+					embed.addField('XP Needed', game.skywars.levelProgress.xpToNextLevel, true);
+					embed.addField('Percent', game.skywars.levelProgress.percent + '%', true);
+
 					embed.addField('Wins', game.skywars.wins, true);
 					embed.addField('Losses', game.skywars.losses, true);
 					embed.addField('WLR', game.skywars.WLRatio, true);
+
 					embed.addField('Kills', game.skywars.kills, true);
 					embed.addField('Deaths', game.skywars.deaths, true);
 					embed.addField('KDR', game.skywars.KDRatio, true);
+
 					embed.addField('Coins', game.skywars.coins, true);
-					embed.addField('Tokens', game.skywars.tokens, true);
 					embed.addField('Heads', game.skywars.heads, true);
 					embed.addField('Souls', game.skywars.souls, true);
-					embed.addField('Shards', (game.skywars.shards) || 0, true);
-					embed.addField('Opals', (game.skywars.opals) || 0, true);
-
 
 					embed.setThumbnail(`http://cravatar.eu/helmhead/${name}.png`);
+
 					break;
 
 				case 'bedwars':
@@ -64,25 +70,34 @@ module.exports = {
 					embed.addField('KDR', game.bedwars.KDRatio, true);
 					embed.setThumbnail(`http://cravatar.eu/helmhead/${name}.png`);
 					break;
+
 				default:
 					return message.channel.send({ embed: { color: '#ff8c00', description: '**LIST OF AVAILABLE MINIGAMES:**\nskywars, sw\nbedwars, bw\n**DUELS COMING SOON**', footer: '' } });
-			}
 }
-else {
+				}
+			else {
+					if(player.rank !== 'Default') {
 					embed.setAuthor('[' + player.rank + ']' + ' ' + player.nickname);
+}
+					else { embed.setAuthor(player.nickname); }
+
 					embed.addField('Level', player.level, true);
-					if (player.guild) {
-						embed.addField('Guild', `[${player.guild.name}](${encodeURI(`https://plancke.io/hypixel/guild/name/${player.guild.name}`)})`, true);
-					}
+
+				if (player.guild) {
+					embed.addField('Guild', `[${player.guild.name}](${encodeURI(`https://plancke.io/hypixel/guild/name/${player.guild.name}`)})`, true);
+}
+
 					embed.addField('Achievement Points', player.achievementPoints.toLocaleString(), true);
 					embed.addField('Karma', player.karma.toLocaleString(), true);
+
 					if (player.isOnline) {
 						const elapsed = dayjs.duration(Date.now() - player.lastLogin).format('H[h] m[m] s[s]');
 						embed.addField('Network status', `Online for ${elapsed}`, true);
 					}
  else if (!player.isOnline) {
 						embed.addField('Last Login', `${dayjs(player.lastLogin).fromNow()}`, true);
-					}
+}
+
 					embed.setThumbnail(`http://cravatar.eu/helmhead/${name}.png`);
 			}
 
