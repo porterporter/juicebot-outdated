@@ -35,7 +35,7 @@ module.exports = {
             message.channel.send({ embed: embed });
         }
  catch (e) {
-    message.reply('There was an error running this command!\n`USAGE: >player <Username>`');
+    message.channel.send({ embed: { color: '#eb3939', description: 'There was an error running this command! **USAGE:** *>player juiceboyy*' } });
      return console.log('[ERROR] There was an error running player.js' + '\n' + e);
         }
 } };

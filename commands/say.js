@@ -5,7 +5,10 @@ module.exports = {
 	guildOnly: true,
 
 	execute(message, args) {
+		if(args.length > 0) {
 		message.delete();
-		message.channel.send(args.join(' '));
+		message.channel.send(args.join(' ')); }
+		else { message.channel.send({ embed: { color: '#eb3939', description: 'Specify a Message!' } }); }
+
 	},
 };

@@ -1,7 +1,9 @@
 require('dotenv').config();
+
 const Hypixel = require('hypixel-api-reborn');
 const hypixel = new Hypixel.Client(process.env.hypixel_token);
 const Discord = require('discord.js');
+
 const dayjs = require('dayjs');
 const relativeTime = require('dayjs/plugin/relativeTime');
 dayjs.extend(relativeTime);
@@ -17,94 +19,84 @@ module.exports = {
 		hypixel.getPlayer(name, { guild: true }).then(async (player) => {
 			const game = player.stats;
 			const embed = new Discord.MessageEmbed();
+
+			// online/offline status (in time)
 			if (player.isOnline != false) {
 				embed.setColor('#51eb39');
-				embed.setFooter('User is currently online');
+				const elapsed = dayjs.duration(Date.now() - player.lastLogin).locale('en').humanize();
+				embed.setFooter(`Online for ${elapsed}`);
 			}
 			else {
 				embed.setColor('#eb3939');
-				embed.setFooter('User is currently offline');
+				embed.setFooter(`Last login ${dayjs(player.lastLogin).fromNow()}`);
 			}
+			embed.setThumbnail(`http://cravatar.eu/helmhead/${name}.png`);
+
+			// search for game type (if any, else, general stats)
 			if(args[1]) {
 			switch (args[1]) {
 				case 'skywars':
 				case 'sw':
-					embed.setAuthor(player.nickname);
-					embed.setDescription('Skywars Stats');
-
-					embed.addField('Level', game.skywars.levelFormatted, true);
-					embed.addField('Prestige', game.skywars.prestige, true);
-					embed.addField('Played Games', game.skywars.playedGames, true);
-
-					embed.addField('Experience', game.skywars.experience, true);
-					embed.addField('XP Needed', game.skywars.levelProgress.xpToNextLevel, true);
-					embed.addField('Percent', game.skywars.levelProgress.percent + '%', true);
-
-					embed.addField('Wins', game.skywars.wins, true);
-					embed.addField('Losses', game.skywars.losses, true);
-					embed.addField('WLR', game.skywars.WLRatio, true);
-
-					embed.addField('Kills', game.skywars.kills, true);
-					embed.addField('Deaths', game.skywars.deaths, true);
-					embed.addField('KDR', game.skywars.KDRatio, true);
-
-					embed.addField('Coins', game.skywars.coins, true);
-					embed.addField('Heads', game.skywars.heads, true);
-					embed.addField('Souls', game.skywars.souls, true);
-
-					embed.setThumbnail(`http://cravatar.eu/helmhead/${name}.png`);
-
+					embed.setAuthor('Bedwars Stats');
+					embed.setDescription(player.nickname);
+					embed.addFields(
+					{ name:'Level', value: game.skywars.levelFormatted, inline: true },
+					{ name:'Prestige', value: game.skywars.prestige, inline: true },
+					{ name:'Played Games', value: game.skywars.playedGames, inline: true },
+					{ name:'Experience', value: game.skywars.experience, inline: true },
+					{ name:'XP Needed', value: game.skywars.levelProgress.xpToNextLevel, inline: true },
+					{ name:'Percent', value: game.skywars.levelProgress.percent, inline: true },
+					{ name:'Wins', value: game.skywars.wins, inline: true },
+					{ name:'Losses', value: game.skywars.losses, inline: true },
+					{ name:'WLR', value: game.skywars.WLRatio, inline: true },
+					{ name:'Kills', value: game.skywars.kills, inline: true },
+					{ name:'Deaths', value: game.skywars.deaths, inline: true },
+					{ name:'KDR', value: game.skywars.KDRatio, inline: true },
+					{ name:'Coins', value: game.skywars.coins, inline: true },
+					{ name:'Heads', value: game.skywars.heads, inline: true },
+					{ name:'Souls', value: game.skywars.souls, inline: true });
 					break;
 
 				case 'bedwars':
 				case 'bw':
-					embed.setAuthor(player.nickname);
-					embed.setDescription('Bedwars Stats');
-					embed.addField('Total Games', game.bedwars.playedGames, true);
-					embed.addField('Wins', game.bedwars.wins, true);
-					embed.addField('Kills', game.bedwars.kills, true);
-					embed.addField('Final Kills', game.bedwars.finalKills, true);
-					embed.addField('Coins', game.bedwars.coins, true);
-					embed.addField('Level', game.bedwars.level, true);
-					embed.addField('KDR', game.bedwars.KDRatio, true);
-					embed.setThumbnail(`http://cravatar.eu/helmhead/${name}.png`);
+					embed.setAuthor('Bedwars Stats');
+					embed.setDescription(player.nickname);
+					embed.addFields(
+					{ name: 'Level', value: game.bedwars.level, inline: true },
+					{ name: 'Prestiege', value: game.bedwars.prestige, inline: true },
+					{ name: 'Total Games', value: game.bedwars.playedGames, inline: true },
+					{ name: 'Wins', value: game.bedwars.wins, inline: true },
+					{ name: 'Losses', value: game.bedwars.losses, inline: true },
+					{ name: 'WLR', value: game.bedwars.WLRatio, inline: true },
+					{ name: 'Kills', value: game.bedwars.kills, inline: true },
+					{ name: 'Deaths', value: game.bedwars.deaths, inline: true },
+					{ name: 'KDR', value: game.bedwars.KDRatio, inline: true },
+					{ name: 'Final Kills', value: game.bedwars.finalKills, inline: true },
+					{ name: 'Beds Broken', value: game.bedwars.beds.broken, inline: true },
+					{ name: 'Coins', value: game.bedwars.coins, inline: true },
+					);
 					break;
 
 				default:
-					return message.channel.send({ embed: { color: '#ff8c00', description: '**LIST OF AVAILABLE MINIGAMES:**\nskywars, sw\nbedwars, bw\n**DUELS COMING SOON**', footer: '' } });
-}
+					return message.channel.send({ embed: { color: '#51eb39', description: '**LIST OF AVAILABLE MINIGAMES:**\nskywars, sw\nbedwars, bw\n**DUELS COMING SOON**', footer: false, thumbnail: false } }); }
 				}
 			else {
 					if(player.rank !== 'Default') {
-					embed.setAuthor('[' + player.rank + ']' + ' ' + player.nickname);
-}
+						embed.setAuthor('[' + player.rank + ']' + ' ' + player.nickname); }
 					else { embed.setAuthor(player.nickname); }
-
-					embed.addField('Level', player.level, true);
-
-				if (player.guild) {
-					embed.addField('Guild', `[${player.guild.name}](${encodeURI(`https://plancke.io/hypixel/guild/name/${player.guild.name}`)})`, true);
-}
+						embed.addField('Level', player.level, true);
+					if (player.guild) {
+						embed.addField('Guild', `[${player.guild.name}](${encodeURI(`https://plancke.io/hypixel/guild/name/${player.guild.name}`)})`, true); }
 
 					embed.addField('Achievement Points', player.achievementPoints.toLocaleString(), true);
 					embed.addField('Karma', player.karma.toLocaleString(), true);
+				}
 
-					if (player.isOnline) {
-						const elapsed = dayjs.duration(Date.now() - player.lastLogin).format('H[h] m[m] s[s]');
-						embed.addField('Network status', `Online for ${elapsed}`, true);
-					}
- else if (!player.isOnline) {
-						embed.addField('Last Login', `${dayjs(player.lastLogin).fromNow()}`, true);
-}
-
-					embed.setThumbnail(`http://cravatar.eu/helmhead/${name}.png`);
-			}
-
-			message.channel.send({ embed });
+				message.channel.send({ embed });
 
 		}).catch(e => {
-			console.log(e);
-			return message.reply('There was an error running this command! Did you type in the username correctly?```USAGE: >stats <Username> (Optional: Gamemode)\n>stats njon skywars```');
+			console.log('[ERROR] There was an error running stats.js' + '\n' + e);
+			return message.channel.send({ embed: { color: '#eb3939', description: 'There was an error running this command! Did you type in the player name correctly?' } });
 
 
 		});
