@@ -37,7 +37,7 @@ module.exports = {
 			switch (args[1]) {
 				case 'skywars':
 				case 'sw':
-					embed.setAuthor('Bedwars Stats');
+					embed.setAuthor('Skywars Stats');
 					embed.setDescription(player.nickname);
 					embed.addFields(
 					{ name:'Level', value: game.skywars.levelFormatted, inline: true },
