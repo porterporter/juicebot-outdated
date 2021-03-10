@@ -10,9 +10,7 @@ module.exports = {
   description: 'retrieve hypixel guild stats',
   execute(message, args) {
         const input = args.slice(1).join(' ');
-        console.log(args[0]);
 
-        console.log(input);
         const embed = new Discord.MessageEmbed;
     switch (args[0]) {
       case 'name':
