@@ -32,13 +32,20 @@ module.exports = {
 			}
 			embed.setThumbnail(`http://cravatar.eu/helmhead/${name}.png`);
 
+			let nameFormatted = '';
+			if(player.rank !== 'Default') {
+				nameFormatted = ('[' + player.rank + ']' + ' **' + player.nickname + '**');
+			} else { 
+				nameFormatted = ('**' + player.nickname + '**'); 
+			}
+
 			// search for game type (if any, else, general stats)
 			if(args[1]) {
 			switch (args[1]) {
 				case 'skywars':
 				case 'sw':
 					embed.setAuthor('Skywars Stats');
-					embed.setDescription(player.nickname);
+					embed.setDescription(nameFormatted);
 					embed.addFields(
 					{ name:'Level', value: game.skywars.levelFormatted, inline: true },
 					{ name:'Prestige', value: game.skywars.prestige, inline: true },
@@ -54,13 +61,14 @@ module.exports = {
 					{ name:'KDR', value: game.skywars.KDRatio, inline: true },
 					{ name:'Coins', value: game.skywars.coins, inline: true },
 					{ name:'Heads', value: game.skywars.heads, inline: true },
-					{ name:'Souls', value: game.skywars.souls, inline: true });
+					{ name:'Souls', value: game.skywars.souls, inline: true },
+					{ name:'Level Progress', value: genBar(game.skywars.levelProgress.percent), inline: false });
 					break;
 
 				case 'bedwars':
 				case 'bw':
 					embed.setAuthor('Bedwars Stats');
-					embed.setDescription(player.nickname);
+					embed.setDescription(nameFormatted);
 					embed.addFields(
 					{ name: 'Level', value: game.bedwars.level, inline: true },
 					{ name: 'Prestiege', value: game.bedwars.prestige, inline: true },
@@ -81,9 +89,7 @@ module.exports = {
 					return message.channel.send({ embed: { color: '#51eb39', description: '**LIST OF AVAILABLE MINIGAMES:**\nskywars, sw\nbedwars, bw\n**DUELS COMING SOON**', footer: false, thumbnail: false } }); }
 				}
 			else {
-					if(player.rank !== 'Default') {
-						embed.setAuthor('[' + player.rank + ']' + ' ' + player.nickname); }
-					else { embed.setAuthor(player.nickname); }
+						embed.setAuthor(nameFormatted);
 						embed.addField('Level', player.level, true);
 					if (player.guild) {
 						embed.addField('Guild', `[${player.guild.name}](${encodeURI(`https://plancke.io/hypixel/guild/name/${player.guild.name}`)})`, true); }
@@ -103,3 +109,11 @@ module.exports = {
 		message.channel.stopTyping();
 	},
 };
+
+function genBar(num) {
+	const str = (num / 5).toString();
+	const digit = Math.floor(str);
+	const filler = 20 - digit;
+	const bar = '[ ' + ('■ '.repeat(digit)) + ('□ '.repeat(filler)) + ']';
+	return bar;
+	}
