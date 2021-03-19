@@ -30,8 +30,3 @@ hypixel_token = PUT YOUR HYPIXEL API BOT TOKEN HERE
 - work with database
 - reaction role module
 - get girlfriend
-
-## With Help From
-- [RoboLiam](https://github.com/Controlfreak707/RoboLiam)
-- [DiscordJS-Hypixel-Stats](https://github.com/TheTaxPerson/DiscordJS-Hypixel-Stats/blob/master/commands/skywars.js)
-- The Hypixel-Api-Reborn Discord Server
