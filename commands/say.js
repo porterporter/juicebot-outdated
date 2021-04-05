@@ -7,8 +7,8 @@ module.exports = {
 	execute(message, args) {
 		if(args.length > 0) {
 		message.delete();
-		message.channel.send(args.join(' ')); }
-		else { message.channel.send({ embed: { color: '#eb3939', description: 'Specify a Message!' } }); }
+		message.channel.send(args.join(' '));
+	} else { message.reply('Specify a Message!'); }
 
 	},
 };
