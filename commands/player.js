@@ -4,7 +4,7 @@ const dayjs = require('dayjs');
 const localizedFormat = require('dayjs/plugin/localizedFormat');
 dayjs.extend(localizedFormat);
 
-const { getNameHistory } = require('./utils');
+const { getNameHistory } = require('../utils/utils');
 
 module.exports = {
     name: 'player',

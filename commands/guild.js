@@ -1,5 +1,5 @@
-const Hypixel = require('hypixel-api-reborn');
-const hypixel = new Hypixel.Client(process.env.hypixel_token);
+const hypixel = require('../utils/hypixel.js');
+
 const Discord = require('discord.js');
 const dayjs = require('dayjs');
 const relativeTime = require('dayjs/plugin/relativeTime');

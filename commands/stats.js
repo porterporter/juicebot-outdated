@@ -1,7 +1,7 @@
 require('dotenv').config();
 
-const Hypixel = require('hypixel-api-reborn');
-const hypixel = new Hypixel.Client(process.env.hypixel_token);
+const hypixel = require('../utils/hypixel.js');
+
 const { MessageEmbed } = require('discord.js');
 
 const dayjs = require('dayjs');

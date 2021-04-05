@@ -5,12 +5,13 @@ const dayjs = require('dayjs');
 const localizedFormat = require('dayjs/plugin/localizedFormat');
 dayjs.extend(localizedFormat);
 
-const utils = require('./utils');
+const utils = require('../utils/utils');
 
 module.exports = {
 	name: 'server',
 	description: 'Display info about this server.',
 	execute(message) {
+
 		const textChannels = message.guild.channels.cache
 			.filter(ch => ch.deleted == false && ch.type === 'text');
 
