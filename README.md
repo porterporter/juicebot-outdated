@@ -1,5 +1,3 @@
-**CURRENTLY UNSTABLE, REVERTING COMMIT SOON**
-
 # juicebot
 [![forthebadge](https://forthebadge.com/images/badges/built-with-swag.svg)](https://forthebadge.com)
 
@@ -14,18 +12,12 @@ you need node.js for this! install it [from here](https://nodejs.org/en/download
 edit the `example.env` and rename it to .env
 ```
 prefix = >
-discord_token = PUT YOUR DISCORD BOT TOKEN HERE
-hypixel_token = PUT YOUR HYPIXEL API BOT TOKEN HERE
+discord_token = PUT YOUR DISCORD BOT TOKEN HERE (https://discord.com/developers/)
+hypixel_token = PUT YOUR HYPIXEL API BOT TOKEN HERE (/api new)
 ```
 
 ## Requirements
 **RUN** `npm i` **TO INSTALL ALL NEEDED DEPENDENCIES**
-- [discord.js](https://www.npmjs.com/package/discord.js)
-- [dotenv](https://www.npmjs.com/package/dotenv)
-- [hypixel-api-reborn](https://www.npmjs.com/package/hypixel-api-reborn)
-- [note-fetch](https://www.npmjs.com/package/node-fetch)
-- [dayjs](https://www.npmjs.com/package/dayjs)
-
 
 ## TO DO:
 - more commands
