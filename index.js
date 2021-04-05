@@ -81,4 +81,4 @@ client.on('message', message => {
 });
 
 
-client.login(process.env.beta_discord_token);
+client.login(process.env.discord_token);
