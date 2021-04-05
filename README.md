@@ -1,3 +1,5 @@
+**CURRENTLY UNSTABLE, REVERTING COMMIT SOON**
+
 # juicebot
 [![forthebadge](https://forthebadge.com/images/badges/built-with-swag.svg)](https://forthebadge.com)
 
