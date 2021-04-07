@@ -1,12 +1,14 @@
 require('dotenv').config();
 const fs = require('fs');
 const Discord = require('discord.js');
+
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
-const prefix = process.env.prefix;
+const { prefix } = process.env;
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
+// eslint-disable-next-line no-restricted-syntax
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     client.commands.set(command.name, command);
@@ -46,9 +48,7 @@ client.on('message', message => {
         if (
             !message.guild.member(message.author).hasPermission(command.permission)
         ) {
-            return message.reply(
-                `You don't have permission to do that!\nYou need to be able to \`${command.permission}\` to run this command.`,
-            );
+            return message.reply(`You don't have permission to do that!\nYou need to be able to \`${command.permission}\` to run this command.`);
         }
     }
 
@@ -75,7 +75,7 @@ client.on('message', message => {
     try {
         command.execute(message, args);
     } catch (error) {
-        console.error(command.name + '\n' + error);
+        console.error(`${command.name}\n${error}`);
         message.reply('There was an error trying to execute that command!');
     }
 });

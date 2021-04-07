@@ -13,10 +13,10 @@ module.exports = {
 	execute(message) {
 
 		const textChannels = message.guild.channels.cache
-			.filter(ch => ch.deleted == false && ch.type === 'text');
+			.filter(ch => ch.deleted === false && ch.type === 'text');
 
 		const voiceChannels = message.guild.channels.cache
-			.filter(ch => ch.deleted == false && ch.type === 'voice');
+			.filter(ch => ch.deleted === false && ch.type === 'voice');
 
 		const stats1 = new MessageEmbed()
 			.setTitle(message.guild.name)
@@ -37,7 +37,6 @@ module.exports = {
 			stats1,
 			stats2,
 		];
-
-		paginationEmbed(message, pages);
+		paginationEmbed(message, pages, ['⬅', '➡'], 15000);
 	},
 };

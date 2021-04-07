@@ -1,14 +1,16 @@
 require('dotenv').config();
 
-const hypixel = require('../utils/hypixel.js');
-
 const { MessageEmbed } = require('discord.js');
-
 const dayjs = require('dayjs');
 const relativeTime = require('dayjs/plugin/relativeTime');
-dayjs.extend(relativeTime);
 const duration = require('dayjs/plugin/duration');
+
 dayjs.extend(duration);
+dayjs.extend(relativeTime);
+
+const hypixel = require('../utils/hypixel.js');
+const { genBar } = require('../utils/utils');
+
 
 module.exports = {
     name: 'stats',
@@ -21,7 +23,7 @@ module.exports = {
             const embed = new MessageEmbed();
 
             // online/offline status (in time)
-            if (player.isOnline != false) {
+            if (player.isOnline !== false) {
                 embed.setColor('#51eb39');
                 const elapsed = dayjs.duration(Date.now() - player.lastLogin).locale('en').humanize();
                 embed.setFooter(`Online for ${elapsed}`);
@@ -35,9 +37,9 @@ module.exports = {
 
             let nameFormatted = '';
             if (player.rank !== 'Default') {
-                nameFormatted = ('[' + player.rank + ']' + ' **' + player.nickname + '**');
+                nameFormatted = (`[${player.rank}] **${ player.nickname}**`);
             } else {
-                nameFormatted = ('**' + player.nickname + '**');
+                nameFormatted = (`** ${player.nickname} **`);
             }
 
             // search for game type (if any, else, general stats)
@@ -64,7 +66,7 @@ module.exports = {
                             { name: 'Heads', value: game.skywars.heads, inline: true },
                             { name: 'Souls', value: game.skywars.souls, inline: true },
                             { name: 'Level Progress', value: genBar(game.skywars.levelProgress.percent), inline: false });
-
+                            
                         break;
 
                     case 'bedwars':
@@ -92,19 +94,28 @@ module.exports = {
                 }
             }
             else {
+                const levelString = player.level.toString();
+                // UNFINISHED WORK WITH LINKS AND GUILD
+                let links = '';
+                player.socialMedia.forEach(element => {
+                    if(element.link.startsWith('http')) {
+                    links += `${element.name} - [Link](${element.link})\n`;
+                } else { links += `${element.name} - ${element.link}\n`; }});
+
                 embed.setAuthor('Hypixel Stats');
                 embed.setDescription(nameFormatted);
-                embed.addField('Level', player.level, true);
-                if (player.guild) {
-                    embed.addField('Guild', `[${player.guild.name}](${encodeURI(`https://plancke.io/hypixel/guild/name/${player.guild.name}`)})`, true);
-                }
-                embed.addField('Achievement Points', player.achievementPoints.toLocaleString(), true);
-                embed.addField('Karma', player.karma.toLocaleString(), true);
+                embed.addFields(
+                { name: 'Level', value: player.level, inline: true },
+                { name: 'Guild', value: player.guild ? `[${player.guild.name}](${encodeURI(`https://plancke.io/hypixel/guild/name/${player.guild.name}`)})` : 'No Guild', inline: true },
+                { name: 'Achievement Points', value: player.achievementPoints.toLocaleString(), inline: true },
+                { name: 'Karma', value: player.karma.toLocaleString(), inline: true });
+                if(player.socialMedia.length > 0) {embed.addField('Links', links, true); }
+                embed.addField('Level Progress', genBar(levelString.slice(-2)), false);
             }
             message.channel.send({ embed });
 
         }).catch(e => {
-            console.log('[ERROR] There was an error running stats.js' + '\n' + e);
+            console.log(`[ERROR] There was an error running stats.js\n${e}`);
             return message.channel.send({ embed: { color: '#eb3939', description: 'There was an error running this command! Did you type in the player name correctly?' } });
         });
 
@@ -112,11 +123,3 @@ module.exports = {
 
     },
 };
-
-function genBar(num) {
-    const str = (num / 5).toString();
-    const digit = Math.floor(str);
-    const filler = 20 - digit;
-    const bar = '[ ' + ('■ '.repeat(digit)) + ('□ '.repeat(filler)) + ']';
-    return bar;
-}

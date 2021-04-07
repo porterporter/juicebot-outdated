@@ -3,6 +3,6 @@ module.exports = {
 	description: 'Ping!',
 	execute(message) {
 		const { ws } = message.client;
-		message.channel.send(`Pong! :fire:${ws.ping}ms:fire:`);
+		message.channel.send(`Pong! :fire: ${ws.ping}ms :fire:`);
 	},
 };

@@ -1,9 +1,11 @@
-const hypixel = require('../utils/hypixel.js');
-
-const Discord = require('discord.js');
+const { genBar } = require('../utils/utils');
+const { MessageEmbed } = require('discord.js');
 const dayjs = require('dayjs');
 const relativeTime = require('dayjs/plugin/relativeTime');
+
 dayjs.extend(relativeTime);
+const hypixel = require('../utils/hypixel.js');
+const { getLevel } = require('../utils/utils');
 
 module.exports = {
   name: 'guild',
@@ -11,22 +13,22 @@ module.exports = {
   execute(message, args) {
         const input = args.slice(1).join(' ');
 
-        const embed = new Discord.MessageEmbed;
+        const embed = new MessageEmbed;
     switch (args[0]) {
       case 'name':
         hypixel.getGuild('name', input).then(guild => {
-          const createdAt = dayjs(guild.createdAtTimestamp).format('LLL');
+          const createdAt = dayjs(guild.createdAtTimestamp).format('LL');
           const gexp = guild.experience;
           const gmembers = (guild.members).length;
-          const planckeURL = ('https://plancke.io/hypixel/guild/name/' + encodeURIComponent(guild.name));
+          const planckeURL = (`https://plancke.io/hypixel/guild/name/${encodeURIComponent(guild.name)}`);
           embed.setAuthor('Guild Stats');
-          embed.setDescription(guild.name);
+          embed.setDescription(`Guild Name: **${guild.name}**`);
           embed.setColor('#ff8c00');
           if(guild.tag) {
           embed.addField('Tag', guild.tag, true); }
-          embed.addField('Level', guild.level, true);
+          embed.addField('Level', getLevel(gexp), true);
           if (guild.description) embed.addField('Description', guild.description, true);
-          embed.addField('Guild EXP', gexp, true);
+          embed.addField('Guild EXP', gexp.toLocaleString(), true);
           if (guild.preferredGames) {
           if ((guild.preferredGames).length > 3) { embed.addField('Games', (guild.preferredGames).length, true); }
           else { embed.addField('Games', guild.preferredGames, true); } }
@@ -34,9 +36,9 @@ module.exports = {
           embed.addField('Members', `[${gmembers}](${planckeURL})`, true);
           embed.addField('Joinable', guild.joinable, true);
           embed.addField('Publicly Listed', guild.publiclyListed, true);
+          embed.addField('Level Progress', genBar(getLevel(gexp).toString().slice(-2)), false);
 
-
-          message.channel.send({ embed: embed });
+          message.channel.send({ embed });
         }).catch(e => {
           console.error(e);
           return message.channel.send({ embed: { color: '#eb3939', description: 'Error! Is this a valid guild name?' } });
@@ -46,18 +48,18 @@ module.exports = {
 
       case 'player':
         hypixel.getGuild('player', input).then(guild => {
-          const createdAt = dayjs(guild.createdAtTimestamp).format('LLL');
+          const createdAt = dayjs(guild.createdAtTimestamp).format('LL');
           const gexp = guild.experience;
           const gmembers = (guild.members).length;
-          const planckeURL = ('https://plancke.io/hypixel/guild/name/' + encodeURIComponent(guild.name));
+          const planckeURL = (`https://plancke.io/hypixel/guild/name/${encodeURIComponent(guild.name)}`);
           embed.setAuthor('Guild Stats');
-          embed.setDescription(guild.name);
+          embed.setDescription(`Guild Name: **${guild.name}**`);
           embed.setColor('#ff8c00');
           if(guild.tag) {
           embed.addField('Tag', guild.tag, true); }
-          embed.addField('Level', guild.level, true);
+          embed.addField('Level', getLevel(gexp), true);
           if (guild.description) embed.addField('Description', guild.description, true);
-          embed.addField('Guild EXP', gexp, true);
+          embed.addField('Guild EXP', gexp.toLocaleString(), true);
           if (guild.preferredGames) {
           if ((guild.preferredGames).length > 3) { embed.addField('Games', (guild.preferredGames).length, true); }
           else { embed.addField('Games', guild.preferredGames, true); } }
@@ -65,8 +67,9 @@ module.exports = {
           embed.addField('Members', `[${gmembers}](${planckeURL})`, true);
           embed.addField('Joinable', guild.joinable, true);
           embed.addField('Publicly Listed', guild.publiclyListed, true);
+          embed.addField('Level Progress', genBar(getLevel(gexp).toString().slice(-2)), false);
 
-          message.channel.send({ embed: embed });
+          message.channel.send({ embed });
 
         }).catch(e => {
           console.error(e);

@@ -1,5 +1,6 @@
 {
-	"extends": "eslint:recommended",
+	"extends": ["airbnb", "prettier", "plugin:node/recommended"],
+	"plugins": ["prettier"],
 	"env": {
 		"node": true,
 		"es6": true
@@ -26,6 +27,7 @@
 		"no-trailing-spaces": ["error"],
 		"no-var": "error",
 		"object-curly-spacing": ["error", "always"],
+		"consistent-return" : ["never"],
 		"prefer-const": "error",
 		"quotes": ["error", "single"],
 		"semi": ["error", "always"],
@@ -41,5 +43,4 @@
 		"spaced-comment": "error",
 		"yoda": "error"
 	}
-
 }
