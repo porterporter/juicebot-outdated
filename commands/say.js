@@ -4,11 +4,11 @@ module.exports = {
 	permission: 'MANAGE_MESSAGES',
 	guildOnly: true,
 
-	execute(message, args) {
+	async execute(message, args) {
 		if(args.length > 0) {
-		message.delete();
-		message.channel.send(args.join(' '));
-	} else { message.reply('Specify a Message!'); }
+			await message.delete();
+			message.channel.send(args.join(' '));
+		} else message.reply('Specify a Message!');
 
 	},
 };

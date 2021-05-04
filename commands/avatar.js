@@ -9,12 +9,7 @@ module.exports = {
 					title: `${user.username}'s Avatar`,
 					color: '#51eb39',
 					image: {
-						url: user.displayAvatarURL(
-							{ format: 'png' },
-							{ dynamic: true }),
-					},
+						url: user.displayAvatarURL({ format: 'png' }, { dynamic: true }) },
 				},
-			},
-		);
-	},
-};
+			});
+	} };

@@ -6,7 +6,7 @@ module.exports = {
 	permission: 'KICK_MEMBERS',
 	execute(message, args) {
 		const member = message.guild.member(message.mentions.users.first());
-		if (member && !args[1]) {
+		if (member && !args[1])
 			member
 				.kick()
 				.then(() => {
@@ -18,8 +18,8 @@ module.exports = {
 					);
 					console.log(err);
 				});
-			}
- else if (member && args[1]) {
+
+		else if (member && args[1]) {
 			const msgArgs = args.slice(1).join(' ');
 			member
 				.kick(msgArgs)
@@ -34,9 +34,8 @@ module.exports = {
 					);
 					console.log(err);
 				});
-			}
- else {
+		} else
 			message.channel.send('❌ Requested user not found.');
-		}
+
 	},
 };

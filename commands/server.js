@@ -1,4 +1,3 @@
-const { MessageEmbed } = require('discord.js');
 const paginationEmbed = require('discord.js-pagination');
 
 const dayjs = require('dayjs');
@@ -18,24 +17,25 @@ module.exports = {
 		const voiceChannels = message.guild.channels.cache
 			.filter(ch => ch.deleted === false && ch.type === 'voice');
 
-		const stats1 = new MessageEmbed()
-			.setTitle(message.guild.name)
-			.setColor('#92cded')
-			.setThumbnail(message.guild.iconURL())
-			.setDescription(`**Total Members:** ${message.guild.memberCount}\n**Guild Owner:** ${message.guild.owner}\n**Roles:** ${message.guild.roles.cache.size}\n**Channels:** 💬 ${textChannels.size} 🔊 ${voiceChannels.size}`)
-			.setFooter(message.guild.id);
+		const stats1 = {
+			title: message.guild.name,
+			color: '#92cded',
+			thumbnail: { url: message.guild.iconURL() },
+			description: `**Total Members:** ${message.guild.memberCount}\n**Guild Owner:** ${message.guild.owner}\n**Roles:** ${message.guild.roles.cache.size}\n**Channels:** 💬 ${textChannels.size} 🔊 ${voiceChannels.size}`,
+			footer: { text: message.guild.id },
+		};
 
-		const stats2 = new MessageEmbed()
-			.setTitle(message.guild.name)
-			.setColor('#92cded')
-			.setThumbnail(message.guild.iconURL())
-			.setDescription(`**Region:** \`${message.guild.region}\`\n**Created At:** ${dayjs(message.guild.createdTimestamp).format('LLL')}\n**Roles: ** ${utils.getRoleMap(message)}`)
-			.setFooter(message.guild.id);
-
+		const stats2 = {
+			title: message.guild.name,
+			color: '#92cded',
+			thumbnail: { url: message.guild.iconURL() },
+			description: `**Region:** \`${message.guild.region}\`\n**Created At:** ${dayjs(message.guild.createdTimestamp).format('LLL')} (${dayjs(message.guild.createdTimestamp).fromNow()})\n**Roles: ** ${utils.getRoleMap(message)}`,
+			footer: { text: message.guild.id },
+		};
 
 		const pages = [
-			stats1,
-			stats2,
+			{ embed: stats1 },
+			{ embed: stats2 },
 		];
 		paginationEmbed(message, pages, ['⬅', '➡'], 15000);
 	},

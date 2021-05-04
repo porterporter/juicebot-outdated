@@ -1,10 +1,7 @@
-const { MessageEmbed } = require('discord.js');
-
 module.exports = {
-	name: 'membercount',
+	name: 'icon',
 	description: 'Display the servers membercount',
 	execute(message) {
-		message.channel.send({ embed: { color: '#92cded', image: {
-			url: message.guild.iconURL(), }, title: `Server icon of \`${message.guild.memberCount}\``}});
-	}
+		message.channel.send({ embed: { color: '#92cded', image: { url: message.guild.iconURL() }, title: message.guild.name } });
+	},
 };
