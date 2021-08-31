@@ -17,7 +17,7 @@
     "discord.js-pagination": "github:porterporter/discord.js-pagination",
     "dotenv": "^8.2.0",
     "hypixel-api-reborn": "github:Hypixel-API-Reborn/hypixel-api-reborn",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "^7.25.0"
